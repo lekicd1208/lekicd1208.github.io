@@ -1,16 +1,282 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="sr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Moja internet stranica</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moja Web Stranica</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --text-color: #333333;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .text-content p {
+            margin-bottom: 1rem;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        /* Video Section Styles */
+        .video-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 6px;
+            background-color: #000;
+            margin-top: 1.5rem;
+        }
+
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #64748b;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <main class="container">
-    <h1>Dobro došli</h1>
-    <p>Ovo je moja prva internet stranica.</p>
-    <a class="button" href="mailto:lekicd@gmail.com">Kontakt</a>
-  </main>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">MojaStranica</a>
+            <nav>
+                <ul>
+                    <li><a href="#pocetna">Početna</a></li>
+                    <li><a href="#o-nama">O nama</a></li>
+                    <li><a href="#galerija">Slike</a></li>
+                    <li><a href="#video">Video</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="pocetna" class="hero">
+        <h1>Dobrodošli na vašu novu web stranicu</h1>
+        <p>Ovo je čista, pregledna i profesionalna osnova prilagođena za vaše tekstove, slike i buduću video podršku.</p>
+        <a href="#kontakt" class="btn">Kontaktirajte nas</a>
+    </section>
+
+    <main>
+        <!-- Sekcija sa tekstom i slikom -->
+        <section id="o-nama">
+            <h2 class="section-title">O našem projektu</h2>
+            <div class="content-grid">
+                <div class="text-content">
+                    <p>Ovde možete smestiti vaš glavni tekst, opis usluga, proizvoda ili ličnu prezentaciju. Stranica je napravljena sa fokusom na preglednost i lakoću čitanja, prateći poslovni stil koji ste odabrali.</p>
+                    <p>Sve sekcije su u potpunosti prilagođene mobilnim telefonima, tabletima i računarima (responzivan dizajn). Možete jednostavno zameniti ove tekstove sa sopstvenim sadržajem.</p>
+                </div>
+                <div class="image-container">
+                    <!-- Primer slike sa placeholder servisa -->
+                    <img src="https://picsum.photos/600/400" alt="Ilustracija stranice">
+                </div>
+            </div>
+        </section>
+
+        <!-- Sekcija za Video Podršku -->
+        <section id="video">
+            <h2 class="section-title">Video Prezentacija</h2>
+            <div class="video-section">
+                <p>Ova sekcija je unapred pripremljena za prikaz video sadržaja. Možete lako ubaciti YouTube video, Vimeo snimak ili lokalni video fajl.</p>
+
+                <div class="video-wrapper">
+                    <!-- Opcija 1: YouTube iframe (zamenite src vašim linkom) -->
+                    <!-- <iframe src="https://www.youtube.com/embed/VASSE_VAŠ_ID" allowfullscreen></iframe> -->
+
+                    <!-- Opcija 2: HTML5 Video plejer za lokalni video fajl -->
+                    <!-- <video controls>
+                        <source src="video.mp4" type="video/mp4">
+                        Vaš pretraživač ne podržava video element.
+                    </video> -->
+
+                    <!-- Trenutni prikaz kao pripremljen placeholder -->
+                    <div class="video-placeholder">
+                        <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Video plejer je spreman</p>
+                        <p style="font-size: 0.9rem;">Ovde će se prikazivati vaš video sadržaj kada dodate link ili fajl.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sekcija Kontakt -->
+        <section id="kontakt">
+            <h2 class="section-title">Kontaktirajte nas</h2>
+            <div class="text-content">
+                <p>Imate li dodatnih pitanja ili želite da prilagodimo stranicu vašim specifičnim potrebama? Slobodno me obavestite šta tačno želite da izmenimo ili dodamo.</p>
+                <p><strong>Email:</strong> primer@domen.rs</p>
+                <p><strong>Telefon:</strong> +381 60 123 4567</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MojaStranica. Sva prava zadržana.</p>
+    </footer>
+
 </body>
 </html>

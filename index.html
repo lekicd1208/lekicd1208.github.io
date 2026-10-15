@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="sr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moja Web Stranica</title>
+    <title>Aura — Kreativni Studio & Video Produkcija</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1e3a8a;
-            --secondary-color: #3b82f6;
-            --text-color: #333333;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
+            --bg-obsidian: #09090b;
+            --surface-dark: #121216;
+            --surface-card: #18181b;
+            --border-subtle: #27272a;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent-solar: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.15);
         }
 
         * {
@@ -21,146 +26,302 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-color);
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-obsidian);
+            color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        /* Ambient background glow */
+        .ambient-glow {
+            position: fixed;
+            top: -20vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            height: 40vh;
+            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(9,9,11,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation */
         header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            width: 100%;
+            background-color: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
         }
 
-        .nav-container {
-            max-width: 1200px;
+        .nav-inner {
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1.25rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
+            font-family: 'Outfit', sans-serif;
             font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
+            font-weight: 800;
+            color: var(--text-main);
             text-decoration: none;
+            letter-spacing: -0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent-solar);
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
+            align-items: center;
         }
 
         nav a {
             text-decoration: none;
-            color: var(--text-color);
+            color: var(--text-muted);
+            font-size: 0.95rem;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.2s ease;
         }
 
         nav a:hover {
-            color: var(--secondary-color);
+            color: var(--text-main);
         }
 
-        .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 5rem 2rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: white;
-            color: var(--primary-color);
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
+        .cta-btn {
+            background-color: var(--text-main);
+            color: var(--bg-obsidian);
+            padding: 0.6rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
             text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.2s, transform 0.1s;
         }
 
-        .btn:hover {
-            background-color: #f1f5f9;
-            transform: translateY(-2px);
+        .cta-btn:hover {
+            background-color: var(--accent-solar);
+            transform: translateY(-1px);
         }
 
-        main {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .content-grid {
+        /* Hero Section */
+        .hero {
+            padding: 12rem 2rem 8rem;
+            max-width: 1280px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
             align-items: center;
         }
 
-        .text-content p {
-            margin-bottom: 1rem;
+        .hero-content h1 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            line-height: 1.08;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
         }
 
-        .image-container img {
-            width: 100%;
-            height: auto;
+        .hero-content h1 span {
+            color: var(--accent-solar);
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-solar);
+            color: var(--bg-obsidian);
+            padding: 0.8rem 1.75rem;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            object-fit: cover;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.1s;
         }
 
-        /* Video Section Styles */
-        .video-section {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            padding: 0.8rem 1.75rem;
             border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--border-subtle);
+            transition: border-color 0.2s;
         }
 
-        .video-wrapper {
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+        }
+
+        .hero-visual {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
+            border-radius: 16px;
             overflow: hidden;
-            border-radius: 6px;
-            background-color: #000;
-            margin-top: 1.5rem;
+            border: 1px solid var(--border-subtle);
+            background: var(--surface-card);
+            aspect-ratio: 4/3;
         }
 
-        .video-wrapper iframe,
-        .video-wrapper video {
+        .hero-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(105%);
+            transition: filter 0.5s ease;
+        }
+
+        .hero-visual:hover img {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        /* Main Content Grid */
+        main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+        }
+
+        section {
+            margin-bottom: 8rem;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+
+        .section-header span {
+            color: var(--accent-solar);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 3vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Bento Grid Showcase */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .bento-card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .bento-card:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        .bento-card.large {
+            grid-column: span 7;
+        }
+
+        .bento-card.small {
+            grid-column: span 5;
+        }
+
+        .bento-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .bento-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .card-img-wrap {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            margin-top: auto;
+            max-height: 280px;
+        }
+
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Video Showcase Section */
+        .video-showcase {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            background-color: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            margin-top: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .video-container iframe,
+        .video-container video {
             position: absolute;
             top: 0;
             left: 0;
@@ -169,29 +330,80 @@
             border: none;
         }
 
-        .video-placeholder {
+        .video-fallback-state {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
-            color: #64748b;
+            background: linear-gradient(135deg, #111115, #18181b);
             text-align: center;
             padding: 2rem;
         }
 
+        .play-button-pulse {
+            width: 72px;
+            height: 72px;
+            background-color: var(--accent-solar);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-obsidian);
+            margin-bottom: 1.25rem;
+            cursor: pointer;
+            box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(245, 158, 11, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+            }
+        }
+
+        /* Footer */
         footer {
-            background-color: var(--card-bg);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-subtle);
+            background-color: var(--surface-dark);
+            padding: 4rem 2rem;
             text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            font-size: 0.9rem;
         }
 
-        @media (max-width: 768px) {
-            .content-grid {
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
                 grid-template-columns: 1fr;
+                padding-top: 9rem;
+                gap: 3rem;
+            }
+            .bento-card.large,
+            .bento-card.small {
+                grid-column: span 12;
             }
             nav ul {
                 display: none;
@@ -201,81 +413,117 @@
 </head>
 <body>
 
+    <div class="ambient-glow"></div>
+
     <header>
-        <div class="nav-container">
-            <a href="#" class="logo">MojaStranica</a>
+        <div class="nav-inner">
+            <a href="#" class="logo">Aura<span>.</span></a>
             <nav>
                 <ul>
-                    <li><a href="#pocetna">Početna</a></li>
-                    <li><a href="#o-nama">O nama</a></li>
-                    <li><a href="#galerija">Slike</a></li>
-                    <li><a href="#video">Video</a></li>
+                    <li><a href="#projekti">Projekti</a></li>
+                    <li><a href="#o-nama">Filozofija</a></li>
+                    <li><a href="#video">Video Produkcija</a></li>
                     <li><a href="#kontakt">Kontakt</a></li>
                 </ul>
             </nav>
+            <a href="#kontakt" class="cta-btn">Započnimo saradnju</a>
         </div>
     </header>
 
-    <section id="pocetna" class="hero">
-        <h1>Dobrodošli na vašu novu web stranicu</h1>
-        <p>Ovo je čista, pregledna i profesionalna osnova prilagođena za vaše tekstove, slike i buduću video podršku.</p>
-        <a href="#kontakt" class="btn">Kontaktirajte nas</a>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Vizuelne priče koje pomeraju <span>granice</span>.</h1>
+            <p>Spajamo vrhunski dizajn, naprednu tehnologiju i filmsku produkciju kako bismo vašem brendu dali prepoznatljiv identitet i glas.</p>
+            <div class="hero-actions">
+                <a href="#video" class="btn-primary">Pogledaj Showreel</a>
+                <a href="#projekti" class="btn-secondary">Istraži radove</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="Moderni vizuelni rad">
+        </div>
     </section>
 
     <main>
-        <!-- Sekcija sa tekstom i slikom -->
-        <section id="o-nama">
-            <h2 class="section-title">O našem projektu</h2>
-            <div class="content-grid">
-                <div class="text-content">
-                    <p>Ovde možete smestiti vaš glavni tekst, opis usluga, proizvoda ili ličnu prezentaciju. Stranica je napravljena sa fokusom na preglednost i lakoću čitanja, prateći poslovni stil koji ste odabrali.</p>
-                    <p>Sve sekcije su u potpunosti prilagođene mobilnim telefonima, tabletima i računarima (responzivan dizajn). Možete jednostavno zameniti ove tekstove sa sopstvenim sadržajem.</p>
-                </div>
-                <div class="image-container">
-                    <!-- Primer slike sa placeholder servisa -->
-                    <img src="https://picsum.photos/600/400" alt="Ilustracija stranice">
-                </div>
+        <!-- Bento Grid Text & Images Section -->
+        <section id="projekti">
+            <div class="section-header">
+                <span>Struktura i Sadržaj</span>
+                <h2>Precizno dizajnirani prostori za vaše ideje i slike.</h2>
             </div>
-        </section>
 
-        <!-- Sekcija za Video Podršku -->
-        <section id="video">
-            <h2 class="section-title">Video Prezentacija</h2>
-            <div class="video-section">
-                <p>Ova sekcija je unapred pripremljena za prikaz video sadržaja. Možete lako ubaciti YouTube video, Vimeo snimak ili lokalni video fajl.</p>
+            <div class="bento-grid">
+                <!-- Large Card -->
+                <div class="bento-card large">
+                    <div>
+                        <h3>Tekstualna i vizuelna harmonija</h3>
+                        <p>Svaki element na stranici pažljivo je postavljen da komunicira kvalitet i poverenje. Pored jasnih tekstualnih blokova, podržane su visoko-rezolutne slike koje ističu vaš rad u najboljem svetlu.</p>
+                    </div>
+                    <div class="card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop" alt="Arhitektura enterijera">
+                    </div>
+                </div>
 
-                <div class="video-wrapper">
-                    <!-- Opcija 1: YouTube iframe (zamenite src vašim linkom) -->
-                    <!-- <iframe src="https://www.youtube.com/embed/VASSE_VAŠ_ID" allowfullscreen></iframe> -->
-
-                    <!-- Opcija 2: HTML5 Video plejer za lokalni video fajl -->
-                    <!-- <video controls>
-                        <source src="video.mp4" type="video/mp4">
-                        Vaš pretraživač ne podržava video element.
-                    </video> -->
-
-                    <!-- Trenutni prikaz kao pripremljen placeholder -->
-                    <div class="video-placeholder">
-                        <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Video plejer je spreman</p>
-                        <p style="font-size: 0.9rem;">Ovde će se prikazivati vaš video sadržaj kada dodate link ili fajl.</p>
+                <!-- Small Card -->
+                <div class="bento-card small">
+                    <div>
+                        <h3>Modularnost</h3>
+                        <p>Fleksibilan raspored omogućava lako dodavanje novih članaka, galerija ili sekcija bez narušavanja modernog estetskog identiteta.</p>
+                    </div>
+                    <div class="card-img-wrap" style="height: 180px;">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop" alt="Digitalna umetnost">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Sekcija Kontakt -->
+        <!-- Video Support Section -->
+        <section id="video">
+            <div class="section-header">
+                <span>Buduća Video Podrška</span>
+                <h2>Spremno za dinamične video formate i kinematografske priče.</h2>
+            </div>
+
+            <div class="video-showcase">
+                <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 800px;">
+                    Sekcija podržava ugrađivanje YouTube i Vimeo snimaka visoke definicije, kao i direktno strimovanje MP4 video fajlova preko HTML5 plejera sa potpunom kontrolom reprodukcije.
+                </p>
+
+                <div class="video-container">
+                    <!-- Opcija za iframe sa YouTube-a: -->
+                    <!-- <iframe src="https://www.youtube.com/embed/VAŠ_VIDEO_ID" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+                    <!-- Stanje spremnosti za video -->
+                    <div class="video-fallback-state">
+                        <div class="play-button-pulse">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        </div>
+                        <h4 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Video plejer spreman za integraciju</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 400px;">Unesite link vašeg videa ili zamenite ovaj element HTML5 video tagom.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
         <section id="kontakt">
-            <h2 class="section-title">Kontaktirajte nas</h2>
-            <div class="text-content">
-                <p>Imate li dodatnih pitanja ili želite da prilagodimo stranicu vašim specifičnim potrebama? Slobodno me obavestite šta tačno želite da izmenimo ili dodamo.</p>
-                <p><strong>Email:</strong> primer@domen.rs</p>
-                <p><strong>Telefon:</strong> +381 60 123 4567</p>
+            <div class="section-header">
+                <span>Kontakt</span>
+                <h2>Spremni da započnemo vaš sledeći projekat?</h2>
+            </div>
+            <div class="bento-card" style="grid-column: span 12; padding: 3rem; background: var(--surface-dark);">
+                <p style="font-size: 1.15rem; margin-bottom: 1.5rem;">Javite nam se i razgovarajte sa našim timom o vašim idejama. Tu smo da ih pretvorimo u stvarnost.</p>
+                <p style="margin-bottom: 0.5rem;"><strong>Email:</strong> studio@aura-creative.rs</p>
+                <p><strong>Lokacija:</strong> Beograd / Dostupno širom sveta</p>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 MojaStranica. Sva prava zadržana.</p>
+        <div class="footer-content">
+            <a href="#" class="logo" style="font-size: 1.25rem;">Aura<span>.</span></a>
+            <p>&copy; 2026 Aura Studio. Sva prava zadržana. Dizajnirano sa pažnjom.</p>
+        </div>
     </footer>
 
 </body>

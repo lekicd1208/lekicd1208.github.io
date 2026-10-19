@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prijava na radionicu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: #f3f4f6;
+      color: #1f2937;
+      margin: 0;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin: 0 0 8px;
+      color: #111827;
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      font-size: 0.95rem;
+      color: #6b7280;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #6366f1;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: #6366f1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: #4f46e5;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .message {
+      margin-top: 16px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .message.success {
+      background: #e7f7ec;
+      color: #166534;
+      border: 1px solid #a7d7b9;
+    }
+
+    .message.error {
+      background: #fdecec;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Prijava na radionicu</h1>
+    <p class="subtitle">Popunite obrazac ispod da se prijavite na odabrani termin.</p>
+
+    <form id="registrationForm" novalidate>
+      <label for="name">Ime i prezime</label>
+      <input type="text" id="name" name="name" placeholder="Unesite ime i prezime" required minlength="2" maxlength="100">
+
+      <label for="email">E-pošta</label>
+      <input type="email" id="email" name="email" placeholder="primer@email.com" required>
+
+      <label for="session">Termin radionice</label>
+      <select id="session" name="session" required>
+        <option value="">Izaberite termin</option>
+        <option value="2026-11-05">05. novembar 2026, 10:00 – 14:00</option>
+        <option value="2026-11-12">12. novembar 2026, 16:00 – 20:00</option>
+        <option value="2026-11-19">19. novembar 2026, 09:00 – 13:00</option>
+      </select>
+
+      <button type="submit">Prijavi se</button>
+    </form>
+
+    <div id="message" class="message"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const session = document.getElementById('session').value;
+
+      if (!name || !email || !session) {
+        message.textContent = 'Molimo popunite sva obavezna polja.';
+        message.className = 'message error';
+        message.style.display = 'block';
+        return;
+      }
+
+      message.textContent = 'Hvala, ' + name + '! Uspešno ste se prijavili na termin ' + session + '. Potvrda je poslata na ' + email + '.';
+      message.className = 'message success';
+      message.style.display = 'block';
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
